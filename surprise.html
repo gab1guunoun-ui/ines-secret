@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Pour ma Inès ❤️</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, pink, lightcoral);
+    text-align: center;
+    padding: 30px;
+    color: white;
+}
+
+input {
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 18px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    background: white;
+    color: crimson;
+    cursor: pointer;
+    margin: 10px;
+}
+
+button:hover {
+    background: mistyrose;
+}
+
+#quiz, #stress, #final, #result {
+    display: none;
+    font-size: 22px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>💌 Site secret pour ma Inès 💌</h1>
+
+<!-- LOGIN -->
+<div id="login">
+    <p>🔐 Mot de passe requis</p>
+    <p><em>Indice : un jour ce sera notre chien… 🐶❤️</em></p>
+
+    <input type="password" id="password" placeholder="Mot secret...">
+    <br>
+    <button onclick="check()">Entrer 💖</button>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz">
+    <p id="question"></p>
+    <div id="answers"></div>
+</div>
+
+<!-- STRESS -->
+<div id="stress">
+    <h2>😳 Et maintenant…</h2>
+    <p><strong>La question fatidique…</strong></p>
+    <p>(Je stresse… 😅💓)</p>
+
+    <button onclick="showFinal()">Continuer 👉</button>
+</div>
+
+<!-- FINAL -->
+<div id="final">
+    <h2>Ma Inès… 🥰</h2>
+    <p><strong>Veux-tu être ma Valentine ? 💖</strong></p>
+
+    <button onclick="yes()">Oui 😍</button>
+    <button onclick="no()">Non 😅</button>
+</div>
+
+<!-- RESULT -->
+<div id="result"></div>
+
+<script>
+// MOT DE PASSE
+const PASSWORD = "patapouf";
+
+// QUESTIONS
+const questions = [
+    {
+        q: "Où sommes-nois tombés amoureux ?",
+        a: ["À l’école", "Sur internet", "Par hasard", "Au ski 😍"]
+    },
+    {
+        q: "Quand s'est on mis ensemble ?",
+        a: ["25 mars", "22 fevrier", "25 fevrier", "On est en couple ???"]
+    },
+    {
+        q: "Ce que j’aime le plus chez toi ?",
+        a: ["Ton sourire", "Ton regard", "Ton cœur", "Tout (tes fesses)"]
+    },
+    {
+        q: "Qui est le plus amoureux ?",
+        a: ["Moi", "Toi", "Nous deux", " arrete c'est genant un peu..."]
+    },
+    {
+        q: "Notre avenir sera…",
+        a: ["Beau", "Magique", "Éternel", "Tout ❤️"]
+    }
+];
+
+// LOGIN
+function check() {
+    const input = document.getElementById("password").value;
+
+    if (input === PASSWORD) {
+        document.getElementById("login").style.display = "none";
+        showQuestion();
+    } else {
+        alert("❌ Mauvais mot de passe 😜");
+    }
+}
+
+// QUIZ
+let current = 0;
+
+const quiz = document.getElementById("quiz");
+const stress = document.getElementById("stress");
+const final = document.getElementById("final");
+const result = document.getElementById("result");
+
+const questionEl = document.getElementById("question");
+const answersEl = document.getElementById("answers");
+
+function showQuestion() {
+    quiz.style.display = "block";
+    questionEl.textContent = questions[current].q;
+    answersEl.innerHTML = "";
+
+    questions[current].a.forEach(answer => {
+        const btn = document.createElement("button");
+        btn.textContent = answer;
+        btn.onclick = nextQuestion;
+        answersEl.appendChild(btn);
+    });
+}
+
+function nextQuestion() {
+    current++;
+
+    if (current < questions.length) {
+        showQuestion();
+    } else {
+        quiz.style.display = "none";
+        stress.style.display = "block";
+    }
+}
+
+// PAGE STRESS → FINAL
+function showFinal() {
+    stress.style.display = "none";
+    final.style.display = "block";
+}
+
+// OUI
+function yes() {
+    final.style.display = "none";
+
+    document.body.style.background =
+        "linear-gradient(45deg, #ff5f9e, #ffc371)";
+
+    result.innerHTML = `
+        <h1>🎉❤️❤️❤️🎉</h1>
+        <h2>Ma Inès, tu viens de me rendre le plus heureux du monde (encore)😍</h2>
+        <p>Merci d’être avec moi </p>
+        <p>Je t’aime pour toujours ❤️</p>
+        <p>on se retrouve le 14 pour beaucoup d'amour</p>
+    `;
+
+    result.style.display = "block";
+}
+
+// NON
+function no() {
+    alert("😜 Mauvaise réponse… C’est OUI !");
+}
+</script>
+
+</body>
+</html>
